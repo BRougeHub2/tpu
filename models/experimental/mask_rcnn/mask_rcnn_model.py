@@ -565,8 +565,10 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
                     fast_rcnn_class_loss_t, fast_rcnn_box_loss_t,
                     mask_loss_t, learning_rate_t])
   else:
-    train_op = None
-    scaffold_fn = None
+    #train_op = None
+    #scaffold_fn = None
+    train_op = train_op
+    scaffold_fn = scaffold_fn
 
   return tf.contrib.tpu.TPUEstimatorSpec(
       mode=mode,
