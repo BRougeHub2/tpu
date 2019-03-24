@@ -429,7 +429,7 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
             optimizer,
             prefix=prefix,
             skip_variables_regex=params['skip_checkpoint_variables'])
-        tf.train.init_from_checkpoint(params['resnet_checkpoint'], vars_to_load)
+        tf.train.init_from_checkpoint(params['pre_trained'], vars_to_load)
         if not vars_to_load:
           raise ValueError('Variables to load is empty.')
         return tf.train.Scaffold()
