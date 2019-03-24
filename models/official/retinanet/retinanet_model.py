@@ -391,6 +391,33 @@ def _model_fn(features, labels, mode, params, model, variable_filter_fn=None):
       return tf.train.Scaffold()
   else:
     scaffold_fn = None
+    
+  elif params['pre_trained'] and mode == tf.estimator.ModeKeys.TRAIN:
+      
+      def scaffold_fn():
+          """Loads pretrained model through scaffold function."""
+          assign_map = {}
+          for i in range(4):
+              var = 'retinanet/class_net/class-{}/'.format(i)
+              assign_map[var] = var
+              var = 'retinanet/box_net/box-{}/'.format(i)
+              assign_map[var] = var
+              for j in range(2, 8):
+                  var = 'retinanet/class_net/class-{}-bn-{}/'.format(i, j)
+                  assign_map[var] = var
+                  var = 'retinanet/box_net/box-{}-bn-{}/'.format(i, j)
+                  assign_map[var] = var
+#          var = 'retinanet_seg/panoptic_net/'
+#          assign_map[var] = var
+          assign_map2 = {'resnet50/': 'resnet50/',
+                         'resnet_fpn/':'resnet_fpn/',
+                         'retinanet_seg/panoptic_net/': 'retinanet_seg/panoptic_net/'}
+          assign_map.update(assign_map2)
+          tf.train.init_from_checkpoint(params['pre_trained'],
+                                        assign_map)
+          return tf.train.Scaffold()
+  else:
+      scaffold_fn = None
 
   # Set up training loss and learning rate.
   update_learning_rate_schedule_parameters(params)
