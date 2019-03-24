@@ -389,8 +389,6 @@ def _model_fn(features, labels, mode, params, model, variable_filter_fn=None):
           '/': 'resnet%s/' % params['resnet_depth'],
       })
       return tf.train.Scaffold()
-  else:
-    scaffold_fn = None
     
   elif params['pre_trained'] and mode == tf.estimator.ModeKeys.TRAIN:
       
