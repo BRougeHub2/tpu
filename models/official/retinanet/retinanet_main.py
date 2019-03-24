@@ -54,6 +54,10 @@ flags.DEFINE_string(
     default='',
     help='GRPC URL of the eval master. Set to an appropiate value when running '
     'on CPU/GPU')
+flags.DEFINE_string(
+    'pre_trained', '',
+    'Location of the Pretrained checkpoint to use for model '
+    'initialization.')
 flags.DEFINE_bool('use_tpu', True, 'Use TPUs rather than CPUs')
 flags.DEFINE_bool(
     'use_xla', False,
@@ -211,6 +215,7 @@ def main(argv):
       num_examples_per_epoch=FLAGS.num_examples_per_epoch,
       use_tpu=FLAGS.use_tpu,
       resnet_checkpoint=FLAGS.resnet_checkpoint,
+      pre_trained=FLAGS.pre_trained,
       val_json_file=FLAGS.val_json_file,
       mode=FLAGS.mode,
   )
