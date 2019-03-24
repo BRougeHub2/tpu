@@ -94,6 +94,7 @@ def default_config():
       total_steps=22500,
       training_file_pattern='',
       resnet_checkpoint='',
+      pre_trained='',
       # Optional string filepath to a checkpoint to warm-start from. By default
       # all variables are warm-started, and it is assumed that vocabularies and
       # `tf.Tensor` names are unchanged. One can use the
