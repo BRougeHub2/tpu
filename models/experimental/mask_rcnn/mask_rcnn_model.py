@@ -418,6 +418,23 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
         return tf.train.Scaffold()
 
       scaffold_fn = resnet_scaffold_fn
+    
+    elif params['pre_trained']:
+      
+      def pre_trained_scaffold_fn():
+        """Loads pretrained model through scaffold function."""
+        # Exclude all variable of optimizer.
+        prefix = ''
+        vars_to_load = _build_assigment_map(
+            optimizer,
+            prefix=prefix,
+            skip_variables_regex=params['skip_checkpoint_variables'])
+        tf.train.init_from_checkpoint(params['resnet_checkpoint'], vars_to_load)
+        if not vars_to_load:
+          raise ValueError('Variables to load is empty.')
+        return tf.train.Scaffold()
+        
+      scaffold_fn = pre_trained_scaffold_fn
 
     # Batch norm requires update_ops to be added as a train_op dependency.
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
