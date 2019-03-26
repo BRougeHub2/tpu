@@ -425,7 +425,7 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
       def pre_trained_scaffold_fn():
         """Loads pretrained model through scaffold function."""
         # Exclude all variable of optimizer.
-        prefix = 'd/'
+        prefix = ''
         vars_to_load = _build_assigment_map(
             optimizer,
             prefix=prefix,
