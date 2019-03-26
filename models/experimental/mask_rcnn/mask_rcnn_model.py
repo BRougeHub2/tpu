@@ -407,8 +407,8 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
       def resnet_scaffold_fn():
         """Loads pretrained model through scaffold function."""
         # Exclude all variable of optimizer.
-        #prefix = 'resnet%s/' % params['resnet_depth']
-        prefix = ''
+        prefix = 'resnet%s/' % params['resnet_depth']
+        #prefix = ''
         vars_to_load = _build_assigment_map(
             optimizer,
             prefix=prefix,
