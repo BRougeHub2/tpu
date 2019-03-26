@@ -432,7 +432,7 @@ def _model_fn(features, labels, mode, params, variable_filter_fn=None):
             skip_variables_regex=params['skip_checkpoint_variables'])
         #tf.train.init_from_checkpoint(params['pre_trained'], vars_to_load)
         tf.train.init_from_checkpoint(params['pre_trained'], {
-          'box_head/': 'box_head/' ,
+          'global_step/': 'global_step/' ,
       })
         if not vars_to_load:
           raise ValueError('Variables to load is empty.')
