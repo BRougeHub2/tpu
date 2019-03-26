@@ -191,6 +191,7 @@ def run(config, train_input_fn=None, eval_input_fn=None):
       model_dir=FLAGS.model_dir,
       log_step_count_steps=FLAGS.iterations_per_loop,
       tpu_config=tpu_config,
+      keep_checkpoint_max=20,
   )
 
   if FLAGS.mode == 'train':
